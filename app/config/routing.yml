@@ -1,0 +1,6 @@
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+sazhin_blog:
+    resource: "@SazhinBlogBundle/Resources/config/routing.yml"
+    prefix:   /

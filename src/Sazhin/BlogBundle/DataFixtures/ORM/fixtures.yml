@@ -1,0 +1,26 @@
+Sazhin\BlogBundle\Entity\Category:
+  category_{1..10}:
+          name: '<text(15)>'
+
+Sazhin\BlogBundle\Entity\User:
+  user0:
+      username: 'HARD'
+      email: 'zachtt@bk.ru'
+      enabled: '1'
+      plainPassword: '123456'
+      roles: [ROLE_ADMIN]
+
+  user_{1..10}:
+      username: '<userName()>'
+      email: '<email()>'
+      plainPassword: <lexify>
+
+Sazhin\BlogBundle\Entity\Post:
+  post_{1..100}:
+      title: '<realText(50)>'
+      description: '<text(150)>'
+      content: '<text(1500)>'
+      createdAt: '<dateTimeBetween("-200 days", "now")>'
+      updatedAt: '<dateTimeBetween("-200 days", "now")>'
+      user: '@user_*'
+      categories: ['@category_*']

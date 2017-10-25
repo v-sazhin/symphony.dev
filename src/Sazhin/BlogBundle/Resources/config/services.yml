@@ -1,0 +1,28 @@
+services:
+#    sazhin_blog.example:
+#        class: Sazhin\BlogBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    #Сервис события при добавлении поста
+    sazhin.post.post_created_event:
+              class: Sazhin\BlogBundle\EventSubscriber\PostCreatedSubscriber
+              tags:
+                - { name: kernel.event_listener, event: sazhin.post.post_created_event, method: newPostCreated }
+              arguments: ['@Psr\Log\LoggerInterface']
+
+    #Сервис события при обновлении поста
+    sazhin.post.post_updated_event:
+              class: Sazhin\BlogBundle\EventSubscriber\PostUpdatedSubscriber
+              tags:
+                    - { name: kernel.event_listener, event: sazhin.post.post_updated_event, method: postUpdated }
+              arguments: ['@Psr\Log\LoggerInterface']
+
+    #Класс заполнения формы создания записи
+    sazhin.post.create_post_form_handler:
+              class: Sazhin\BlogBundle\Form\Handler\CreatePostFormHandler
+              arguments: ['@sazhin.post.post_manager']
+
+    #Менеджер сохранения поста
+    sazhin.post.post_manager:
+              class: Sazhin\BlogBundle\DomainManager\PostManager
+              arguments: ['@doctrine.orm.entity_manager', '@event_dispatcher']

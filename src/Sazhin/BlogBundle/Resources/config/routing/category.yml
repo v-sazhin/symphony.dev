@@ -1,0 +1,19 @@
+admin_category_index:
+    path:     /
+    defaults: { _controller: 'SazhinBlogBundle:Admin\AdminCategory:index' }
+    methods:  GET
+
+admin_category_new:
+    path:     /new
+    defaults: { _controller: 'SazhinBlogBundle:Admin\AdminCategory:new' }
+    methods:  [GET, POST]
+
+admin_category_edit:
+    path:     /{id}/edit
+    defaults: { _controller: 'SazhinBlogBundle:Admin\AdminCategory:edit' }
+    methods:  [GET, POST]
+
+admin_category_delete:
+    path:     /{id}/delete
+    defaults: { _controller: 'SazhinBlogBundle:Admin\AdminCategory:delete' }
+    methods:  DELETE

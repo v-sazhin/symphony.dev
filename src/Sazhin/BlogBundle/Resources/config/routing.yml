@@ -1,0 +1,11 @@
+sazhin_blog_admin:
+    resource: "@SazhinBlogBundle/Resources/config/routing/admin.yml"
+    prefix: /admin/
+
+sazhin_blog_category_admin:
+    resource: "@SazhinBlogBundle/Resources/config/routing/category.yml"
+    prefix: /admin/category/
+
+sazhin_blog_post:
+    resource: "@SazhinBlogBundle/Resources/config/routing/post.yml"
+    prefix:   /

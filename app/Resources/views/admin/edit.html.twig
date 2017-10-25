@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Post edit</h1>
+
+    {{ form_start(edit_form) }}
+    {{ form_widget(edit_form) }}
+    <br>
+    <input type="submit" value="Edit" class="btn btn-success btn-block"/>
+    {{ form_end(edit_form) }}
+
+    <br>
+    {{ form_start(delete_form) }}
+    <input type="submit" value="Delete" class="btn btn-danger btn-block">
+    {{ form_end(delete_form) }}
+
+{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#sazhin_blogbundle_post_categories').select2();
+        });
+    </script>
+{% endblock %}
+
+{% block title %}Редактирование записи {{ post.title }}{% endblock %}

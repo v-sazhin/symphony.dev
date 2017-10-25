@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_widget(form) }}
+        <br>
+        <input type="submit" value="Create" class="btn btn-default btn-block"/>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#sazhin_blogbundle_post_categories').select2();
+        });
+    </script>
+{% endblock %}
+
+{% block title %}Добавление категории{% endblock %}

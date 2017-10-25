@@ -1,0 +1,36 @@
+{% extends '@SazhinBlog/Default/index.html.twig' %}
+
+{% block header %}
+    <header class="masthead" style="background-image: url('{{ asset('img/post-bg.jpg') }}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="post-heading">
+                        <h1>{{ post.title }}</h1>
+                        {#<h2 class="subheading">Problems look mighty small from 150 miles up</h2>#}
+                        <span class="meta">
+                Категория: {% for category in  post.categories %}
+                                {{ category.name }}
+                            {% endfor %}
+                            | {{ post.createdAt|date('Y-m-d H:i:s') }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+{% block body %}
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    {{ post.content }}
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <br>
+                        <a href="{{ path('admin_edit', { 'id': post.id }) }}">Редактровать</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}

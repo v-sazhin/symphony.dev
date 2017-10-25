@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="form_title">
+                <source>form.title</source>
+                <target>Заголовок</target>
+            </trans-unit>
+            <trans-unit id="form_description">
+                <source>form.description</source>
+                <target>Краткое описание</target>
+            </trans-unit>
+            <trans-unit id="form_content">
+                <source>form.content</source>
+                <target>Контент</target>
+            </trans-unit>
+            <trans-unit id="form_categories">
+                <source>form.categories</source>
+                <target>Категории</target>
+            </trans-unit>
+            <trans-unit id="form_categories_name">
+                <source>form.categories.name</source>
+                <target>Название категории</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

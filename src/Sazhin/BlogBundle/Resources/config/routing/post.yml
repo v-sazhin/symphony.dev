@@ -1,0 +1,11 @@
+post_index:
+    path:     /
+    defaults: { _controller: "SazhinBlogBundle:Post:index" }
+    methods:  GET
+
+post_show:
+    path:     /{id}
+    defaults: { _controller: "SazhinBlogBundle:Post:show" }
+    methods:  GET
+
+

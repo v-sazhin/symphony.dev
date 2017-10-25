@@ -1,0 +1,62 @@
+{% extends '@SazhinBlog/Default/index.html.twig' %}
+
+{% block header %}
+    <header class="masthead" style="background-image: url('{{ asset('img/home-bg.jpg') }}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Clean Blog</h1>
+                        <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                {% for post in posts %}
+                    <div class="post-preview">
+                        <a href="{{ path('post_show', { 'id': post.id }) }}">
+                            <h2 class="post-title">
+                                {{ post.title }}
+                            </h2>
+                        </a>
+                        <h3 class="post-subtitle">
+                            {{ post.description }}
+                        </h3>
+                        <p class="post-meta">
+                            {% if post.user %}
+                                by {{ post.user.username}}
+                            {% endif %}
+
+                            {% if post.createdAt %}
+                                <i class="fa fa-clock-o"></i> {{ post.createdAt|date('Y-m-d H:i:s') }}
+                            {% endif %}
+
+                            {% for category in  post.categories %}
+                                | {{ category.name }}
+                            {% endfor %}
+
+                            {% if is_granted("ROLE_ADMIN") %}
+                            | <a href="{{ path('admin_edit', { 'id': post.id }) }}">Редактировать</a>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <hr>
+                {% endfor %}
+                <div class="clearfix">
+                    <div class="navigation">
+                        {{ knp_pagination_render(posts) }}
+                    </div>
+                    {#<a class="btn btn-secondary float-right" href="#">Older Posts &rarr;</a>#}
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+{% endblock %}

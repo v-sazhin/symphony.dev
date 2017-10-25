@@ -1,0 +1,19 @@
+admin_index:
+    path:     /
+    defaults: { _controller: 'SazhinBlogBundle:Admin\Admin:index' }
+    methods:  GET
+
+admin_new:
+    path:     /new
+    defaults: { _controller: 'SazhinBlogBundle:Admin\Admin:new' }
+    methods:  [GET, POST]
+
+admin_edit:
+    path:     /{id}/edit
+    defaults: { _controller: 'SazhinBlogBundle:Admin\Admin:edit' }
+    methods:  [GET, POST]
+
+admin_delete:
+    path:     /{id}/delete
+    defaults: { _controller: 'SazhinBlogBundle:Admin\Admin:delete' }
+    methods:  DELETE

@@ -106,3 +106,8 @@ knp_paginator:
         pagination: 'Pagination/twitter_bootstrap_pagination.html.twig'     # sliding pagination controls template
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true

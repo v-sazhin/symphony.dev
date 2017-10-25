@@ -4,7 +4,7 @@ post_index:
     methods:  GET
 
 post_show:
-    path:     /{id}
+    path:     /{slug}
     defaults: { _controller: "SazhinBlogBundle:Post:show" }
     methods:  GET
 

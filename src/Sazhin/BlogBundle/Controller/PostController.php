@@ -33,7 +33,7 @@ class PostController extends Controller
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            10
+            10, ['defaultSortFieldName' => 'a.createdAt', 'defaultSortDirection' => 'desc']
         );
 
         return $this->render('post/index.html.twig', array(
@@ -44,12 +44,18 @@ class PostController extends Controller
     /**
      * Finds and displays a post entity.
      *
-     * @param Post $post
+     * @param $slug
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     * @internal param Post $post
+     *
      */
-    public function showAction(Post $post)
+    public function showAction($slug/*, Post $post*/)
     {
+        $em = $this->getDoctrine()->getRepository('SazhinBlogBundle:Post');
+        $post = $em->findOneBy(['slug'=>$slug]);
+        //dump($post);die;
+
         return $this->render('post/show.html.twig', array(
             'post' => $post,
         ));

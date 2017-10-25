@@ -3,6 +3,8 @@
 namespace Sazhin\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -49,6 +51,13 @@ class Post
      * @ORM\Column(name="title", type="string", length=500)
      */
     private $title;
+
+    /**
+     * @var string
+     * @Gedmo\Slug(fields={"id", "title"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     /**
      * @var string
@@ -314,5 +323,10 @@ class Post
     public function getTimeCreated()
     {
         return $this->createdAt->format('Y-m-d h:i:s ');
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

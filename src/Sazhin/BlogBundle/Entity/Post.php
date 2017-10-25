@@ -54,7 +54,7 @@ class Post
 
     /**
      * @var string
-     * @Gedmo\Slug(fields={"id", "title"})
+     * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;

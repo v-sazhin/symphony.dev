@@ -55,7 +55,9 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getRepository('SazhinBlogBundle:Post');
         $post = $em->findOneBy(['slug'=>$slug]);
         //dump($post);die;
-
+        if (!$post){
+            throw $this->createNotFoundException('Запрошенная страница не существует');
+        }
         return $this->render('post/show.html.twig', array(
             'post' => $post,
         ));

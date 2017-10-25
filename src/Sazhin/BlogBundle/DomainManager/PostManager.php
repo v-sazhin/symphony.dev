@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Sazhin\BlogBundle\Entity\Post;
 use Sazhin\BlogBundle\Entity\User;
 use Sazhin\BlogBundle\Event\PostCreatedEvent;
+use Sazhin\BlogBundle\Event\PostUpdatedEvent;
 use Sazhin\BlogBundle\PostEvents;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -37,8 +38,14 @@ class PostManager
 
     }
 
-    public function updatePost(Post $post, User $user)
+    public function editPost(Post $post)
     {
+
+        $this->manager->persist($post);
+
+        $this->manager->flush();
+
+        $this->dispatch($post, new PostUpdatedEvent(), PostEvents::POST_UPDATED);
 
     }
 

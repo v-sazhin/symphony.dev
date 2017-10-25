@@ -33,7 +33,7 @@ class AdminController extends Controller
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            50, ['defaultSortFieldName'=>'a.createdAt', 'defaultSortDirection' => 'desc']
+            50, ['defaultSortFieldName' => 'a.createdAt', 'defaultSortDirection' => 'desc']
         );
 
         return $this->render('/admin/index.html.twig', array(
@@ -51,12 +51,12 @@ class AdminController extends Controller
     public function newAction(Request $request)
     {
         $post = new Post();
-        //dump(PostEvents::defined('POST_CREATED'));die();
+
         $form = $this->createForm('Sazhin\BlogBundle\Form\PostType', $post);
 
         $formHandler = $this->get('sazhin.post.create_post_form_handler');
 
-        if ($formHandler->handle($form, $request, $this->getUser())){
+        if ($formHandler->handle($form, $request, $this->getUser())) {
 
             return $this->redirectToRoute('admin_index');
 
@@ -66,8 +66,8 @@ class AdminController extends Controller
             'post' => $post,
             'form' => $form->createView(),
         ));
-    }
 
+    }
 
     /**
      * Displays a form to edit an existing post entity.
@@ -79,19 +79,17 @@ class AdminController extends Controller
      */
     public function editAction(Request $request, Post $post)
     {
+
         $deleteForm = $this->createDeleteForm($post);
+
         $editForm = $this->createForm('Sazhin\BlogBundle\Form\PostType', $post);
-        $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        $formHandler = $this->get('sazhin.post.update_post_form_handler');
 
-            $eventDispatcher = $this->container->get('event_dispatcher');
-            $event = new PostUpdatedEvent();
-            $event->setPost($post);
-            $eventDispatcher->dispatch(PostEvents::POST_UPDATED, $event);
+        if ($formHandler->handle($editForm, $request)) {
 
-            return $this->redirectToRoute('admin_edit', array('id' => $post->getId()));
+            return $this->redirectToRoute('admin_edit', ['id' => $post->getId()]);
+
         }
 
         return $this->render(':admin:edit.html.twig', array(

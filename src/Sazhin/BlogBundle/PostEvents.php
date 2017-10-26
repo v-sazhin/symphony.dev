@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Андрей
- * Date: 23.10.2017
- * Time: 11:21
- */
 
 namespace Sazhin\BlogBundle;
 
@@ -17,6 +11,6 @@ class PostEvents
 
     public static function defined(string $constName)
     {
-        return defined('static::'.$constName);
+        return defined('static::' . $constName);
     }
 }

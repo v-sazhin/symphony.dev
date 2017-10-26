@@ -3,6 +3,7 @@
 namespace Sazhin\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Category
@@ -33,6 +34,12 @@ class Category
      */
     private $name;
 
+    /**
+     * @var string
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     /**
      * Get id
@@ -67,6 +74,7 @@ class Category
     {
         return $this->name;
     }
+
     /**
      * Constructor
      */
@@ -107,5 +115,10 @@ class Category
     public function getPosts()
     {
         return $this->posts;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

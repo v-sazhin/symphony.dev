@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
                     <div class="site-heading">
-                        <h1>Clean Blog</h1>
+                        <h1>Посты в категории {{ category.name }}</h1>
                         <span class="subheading">A Blog Theme by Start Bootstrap</span>
                     </div>
                 </div>
@@ -39,9 +39,7 @@
                             {% endif %}
 
                             {% for category in  post.categories %}
-                                | <a href="{{ path('blog_category_show', {'slug': category.slug}) }}">
-                                {{ category.name }}
-                            </a>
+                                | {{ category.name }}
                             {% endfor %}
 
                             {% if is_granted("ROLE_ADMIN") %}

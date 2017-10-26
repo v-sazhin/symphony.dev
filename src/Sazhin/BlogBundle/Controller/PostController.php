@@ -2,11 +2,6 @@
 
 namespace Sazhin\BlogBundle\Controller;
 
-use Sazhin\BlogBundle\Entity\Category;
-use Sazhin\BlogBundle\Entity\Post;
-use Sazhin\BlogBundle\Event\PostCreatedEvent;
-use Sazhin\BlogBundle\Event\PostUpdatedEvent;
-use Sazhin\BlogBundle\PostEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -1,0 +1,4 @@
+blog_category_show:
+    path:     /{slug}
+    defaults: { _controller: 'SazhinBlogBundle:Category:show' }
+    methods:  GET

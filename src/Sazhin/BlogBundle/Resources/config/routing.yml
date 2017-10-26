@@ -6,6 +6,10 @@ sazhin_blog_category_admin:
     resource: "@SazhinBlogBundle/Resources/config/routing/category.yml"
     prefix: /admin/category/
 
+sazhin_blog_category:
+  resource: 'routing/blog_category.yml'
+  prefix: /category
+
 sazhin_blog_post:
     resource: "@SazhinBlogBundle/Resources/config/routing/post.yml"
     prefix:   /

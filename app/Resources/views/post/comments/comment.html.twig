@@ -1,0 +1,14 @@
+{% for comment in comments %}
+    <hr>
+    <div class="media">
+        <img class="mr-3" src="https://www.quackit.com/pix/samples/11s.jpg" alt="Sample photo">
+        <div class="media-body" data-id="{{ comment.id }}">
+            <h4>{{ comment.user.username }}</h4>
+            <p>{{ comment.comment }}</p>
+            <a class="btn btn-primary btn-xs btn-replay" data-id="{{ comment.id }}">Ответить</a>
+            {% if comment.__children %}
+                {% include ":post/comments:comment.html.twig" with {'comments': comment.__children} %}
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}

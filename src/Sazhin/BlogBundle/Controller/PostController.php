@@ -2,6 +2,7 @@
 
 namespace Sazhin\BlogBundle\Controller;
 
+use Sazhin\BlogBundle\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -41,20 +42,52 @@ class PostController extends Controller
      *
      * @param $slug
      *
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @internal param Post $post
+     * @param Request $request
      *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction($slug/*, Post $post*/)
+    public function showAction($slug, Request $request)
     {
+        //dump($request->request->all());die;
         $em = $this->getDoctrine()->getRepository('SazhinBlogBundle:Post');
-        $post = $em->findOneBy(['slug'=>$slug]);
-        //dump($post);die;
-        if (!$post){
+        $post = $em->findOneBy(['slug' => $slug]);
+        if (!$post) {
             throw $this->createNotFoundException('Запрошенная страница не существует');
         }
+        $commentRepo = $this->getDoctrine()->getRepository('SazhinBlogBundle:Comment');
+
+        $comment = new Comment();
+
+        $commentForm = $this->createForm('Sazhin\BlogBundle\Form\CommentType', $comment);
+
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $comment->setPost($post);
+            $comment->setUser($this->getUser());
+
+            if ($request->get('parent')){
+                $parent = $commentRepo->find($request->get('parent'));
+                if (!$parent){
+                    $this->createNotFoundException('Комментарий не определен');
+                }
+                $comment->setParent($parent);
+            }
+
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('post_show', ['slug'=>$post->getSlug()]);
+        }
+
+        $comments= $commentRepo->getCommentsForPost($post->getId());
+
         return $this->render('post/show.html.twig', array(
             'post' => $post,
+            'comments'=>$comments,
+            'commentForm' => $commentForm->createView()
         ));
     }
 

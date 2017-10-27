@@ -29,8 +29,27 @@
                         <br>
                         <a href="{{ path('admin_edit', { 'id': post.id }) }}">Редактровать</a>
                     {% endif %}
+                    <hr>
+                    {% include ':post/comments:comment-form.html.twig' %}
+                    {% include ':post/comments:comment.html.twig' %}
                 </div>
             </div>
         </div>
     </article>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            var scrollTo = $('#comment-form').offset().top;
+            $('.btn-replay').click(function () {
+                var post = $(this).attr('data-id');
+                $( "#post-id" ).remove();
+                var input = '<input type="hidden" name="parent" id="post-id" value="' + post + '">';
+                $(document).scrollTop(scrollTo);
+                $("#sazhin_blogbundle_comment").append(input);
+            });
+        });
+    </script>
 {% endblock %}

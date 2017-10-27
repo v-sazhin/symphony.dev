@@ -22,6 +22,10 @@
                 <source>form.categories.name</source>
                 <target>Название категории</target>
             </trans-unit>
+            <trans-unit id="form_comment_comment">
+                <source>form.comment.comment</source>
+                <target>Комментарий:</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

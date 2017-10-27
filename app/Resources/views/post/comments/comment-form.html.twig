@@ -1,3 +1,4 @@
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 <div class="card my-4" id="comment-form">
     <h5 class="card-header">Leave a Comment:</h5>
     <div class="card-body">
@@ -10,3 +11,8 @@
         {{ form_end(commentForm) }}
     </div>
 </div>
+{% else %}
+    <div class="card my-4">
+        <h5 class="card-body">Вы должны <a href="{{ path('fos_user_security_login') }}">войти</a>, чтобы оставить комментарий.</h5>
+    </div>
+{% endif %}

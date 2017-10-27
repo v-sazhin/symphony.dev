@@ -5,7 +5,9 @@
         <div class="media-body" data-id="{{ comment.id }}">
             <h4>{{ comment.user.username }}</h4>
             <p>{{ comment.comment }}</p>
-            <a class="btn btn-primary btn-xs btn-replay" data-id="{{ comment.id }}">Ответить</a>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <a class="btn btn-primary btn-xs btn-replay" data-id="{{ comment.id }}">Ответить</a>
+            {% endif %}
             {% if comment.__children %}
                 {% include ":post/comments:comment.html.twig" with {'comments': comment.__children} %}
             {% endif %}

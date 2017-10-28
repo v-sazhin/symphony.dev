@@ -48,12 +48,16 @@ class PostController extends Controller
      */
     public function showAction($slug, Request $request)
     {
-        //dump($request->request->all());die;
         $em = $this->getDoctrine()->getRepository('SazhinBlogBundle:Post');
+
         $post = $em->findOneBy(['slug' => $slug]);
+
         if (!$post) {
+
             throw $this->createNotFoundException('Запрошенная страница не существует');
+
         }
+
         $commentRepo = $this->getDoctrine()->getRepository('SazhinBlogBundle:Comment');
 
         $comment = new Comment();
@@ -62,34 +66,25 @@ class PostController extends Controller
 
         $commentForm->handleRequest($request);
 
-        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+        $commentFormHandler = $this->get('sazhin.post.create_comment_form_handler');
 
-            $em = $this->getDoctrine()->getManager();
-            $comment->setPost($post);
-            $comment->setUser($this->getUser());
-
-            if ($request->get('parent')){
-                $parent = $commentRepo->find($request->get('parent'));
-                if (!$parent){
-                    $this->createNotFoundException('Комментарий не определен');
-                }
-                $comment->setParent($parent);
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            if ($commentFormHandler->handle(
+                $commentForm,
+                $request,
+                $this->getUser(),
+                $post)) {
+                return $this->redirectToRoute('post_show', ['slug' => $post->getSlug()]);
             }
-
-            $em->persist($comment);
-            $em->flush();
-
-            return $this->redirectToRoute('post_show', ['slug'=>$post->getSlug()]);
         }
 
-        $comments= $commentRepo->getCommentsForPost($post->getId());
+        $comments = $commentRepo->getCommentsForPost($post->getId());
 
         return $this->render('post/show.html.twig', array(
             'post' => $post,
-            'comments'=>$comments,
+            'comments' => $comments,
             'commentForm' => $commentForm->createView()
         ));
     }
-
 
 }

@@ -2,7 +2,6 @@
 
 namespace Sazhin\BlogBundle\Event;
 
-use Monolog\Logger;
 use Sazhin\BlogBundle\Entity\Post;
 use Symfony\Component\EventDispatcher\Event;
 

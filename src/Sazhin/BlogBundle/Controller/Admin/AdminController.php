@@ -33,7 +33,7 @@ class AdminController extends Controller
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            50, ['defaultSortFieldName' => 'a.createdAt', 'defaultSortDirection' => 'desc']
+            50, ['defaultSortFieldName' => 'a.id', 'defaultSortDirection' => 'desc']
         );
 
         return $this->render('/admin/index.html.twig', array(

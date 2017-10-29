@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Sazhin\BlogBundle\Entity\Post;
 use Sazhin\BlogBundle\Entity\User;
 use Sazhin\BlogBundle\Event\PostCreatedEvent;
+use Sazhin\BlogBundle\Event\PostDeletedEvent;
 use Sazhin\BlogBundle\Event\PostUpdatedEvent;
 use Sazhin\BlogBundle\PostEvents;
 use Symfony\Component\EventDispatcher\Event;
@@ -46,6 +47,17 @@ class PostManager
         $this->manager->flush();
 
         $this->dispatch($post, new PostUpdatedEvent(), PostEvents::POST_UPDATED);
+
+    }
+
+    public function deletePost(Post $post)
+    {
+
+        $this->manager->remove($post);
+
+        $this->manager->flush();
+
+        $this->dispatch($post,new PostDeletedEvent(), PostEvents::POST_DELETED);
 
     }
 

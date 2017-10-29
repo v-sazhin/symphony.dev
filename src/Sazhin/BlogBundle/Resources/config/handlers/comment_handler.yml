@@ -1,0 +1,6 @@
+services:
+
+    #Класс заполнения формы добавления комментария
+    sazhin.post.create_comment_form_handler:
+              class: Sazhin\BlogBundle\Form\Handler\CreateCommentFormHandler
+              arguments: ['@sazhin.post.comment_manager']

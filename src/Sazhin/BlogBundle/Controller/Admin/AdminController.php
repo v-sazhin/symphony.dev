@@ -110,13 +110,11 @@ class AdminController extends Controller
     public function deleteAction(Request $request, Post $post)
     {
         $form = $this->createDeleteForm($post);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($post);
-            $em->flush();
-        }
+        $formHandler = $this->get('sazhin.post.delete_post_form_handler');
+        //dump($post);die;
+        //todo проверить наличие ошибок
+        $formHandler->handle($form, $request, $post);
 
         return $this->redirectToRoute('admin_index');
     }

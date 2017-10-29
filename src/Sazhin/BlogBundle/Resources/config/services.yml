@@ -1,27 +1,10 @@
+imports:
+        - { resource: "@SazhinBlogBundle/Resources/config/events/post_events.yml" }
+        - { resource: "@SazhinBlogBundle/Resources/config/events/comment_events.yml" }
+        - { resource: "@SazhinBlogBundle/Resources/config/handlers/post_handlers.yml" }
+        - { resource: "@SazhinBlogBundle/Resources/config/handlers/comment_handler.yml" }
+######################################################################################
 services:
-    #Сервис события при добавлении поста
-    sazhin.post.post_created_event:
-              class: Sazhin\BlogBundle\EventSubscriber\PostCreatedSubscriber
-              tags:
-                - { name: kernel.event_listener, event: sazhin.post.post_created_event, method: newPostCreated }
-              arguments: ['@Psr\Log\LoggerInterface']
-
-    #Сервис события при обновлении поста
-    sazhin.post.post_updated_event:
-              class: Sazhin\BlogBundle\EventSubscriber\PostUpdatedSubscriber
-              tags:
-                    - { name: kernel.event_listener, event: sazhin.post.post_updated_event, method: postUpdated }
-              arguments: ['@Psr\Log\LoggerInterface']
-
-    #Класс заполнения формы создания записи
-    sazhin.post.create_post_form_handler:
-              class: Sazhin\BlogBundle\Form\Handler\CreatePostFormHandler
-              arguments: ['@sazhin.post.post_manager']
-
-    #Класс заполнения формы редактирования записи
-    sazhin.post.update_post_form_handler:
-              class: Sazhin\BlogBundle\Form\Handler\EditPostFormHandler
-              arguments: ['@sazhin.post.post_manager']
 
     #Менеджер постов
     sazhin.post.post_manager:
@@ -32,15 +15,3 @@ services:
     sazhin.post.comment_manager:
               class: Sazhin\BlogBundle\DomainManager\CommentManager
               arguments: ['@doctrine.orm.entity_manager', '@event_dispatcher']
-
-    #Класс заполнения формы добавления комментария
-    sazhin.post.create_comment_form_handler:
-              class: Sazhin\BlogBundle\Form\Handler\CreateCommentFormHandler
-              arguments: ['@sazhin.post.comment_manager']
-
-    #Сервис события при добавлении комментария
-    sazhin.post.comment_created_event:
-              class: Sazhin\BlogBundle\EventSubscriber\CommentCreatedSubscriber
-              tags:
-              - { name: kernel.event_listener, event: sazhin.post.comment_created_event, method: newCommentCreated }
-              arguments: ['@Psr\Log\LoggerInterface']

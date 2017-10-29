@@ -1,0 +1,7 @@
+services:
+    #Сервис события при добавлении комментария
+    sazhin.post.comment_created_event:
+              class: Sazhin\BlogBundle\EventSubscriber\CommentCreatedSubscriber
+              tags:
+              - { name: kernel.event_listener, event: sazhin.post.comment_created_event, method: newCommentCreated }
+              arguments: ['@Psr\Log\LoggerInterface']

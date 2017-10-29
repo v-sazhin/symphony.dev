@@ -1,0 +1,15 @@
+services:
+    #Класс заполнения формы создания записи
+    sazhin.post.create_post_form_handler:
+              class: Sazhin\BlogBundle\Form\Handler\CreatePostFormHandler
+              arguments: ['@sazhin.post.post_manager']
+
+    #Класс заполнения формы удаления записи
+    sazhin.post.delete_post_form_handler:
+              class: Sazhin\BlogBundle\Form\Handler\DeletePostFormHandler
+              arguments: ['@sazhin.post.post_manager']
+
+    #Класс заполнения формы редактирования записи
+    sazhin.post.update_post_form_handler:
+              class: Sazhin\BlogBundle\Form\Handler\EditPostFormHandler
+              arguments: ['@sazhin.post.post_manager']

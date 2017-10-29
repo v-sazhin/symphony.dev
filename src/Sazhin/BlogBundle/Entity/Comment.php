@@ -33,7 +33,7 @@ class Comment
     private $user;
 
     /**
-     *@ORM\ManyToOne(targetEntity="Sazhin\BlogBundle\Entity\Post")
+     *@ORM\ManyToOne(targetEntity="Sazhin\BlogBundle\Entity\Post", inversedBy="comments")
      * @JoinColumn(name="post_id", referencedColumnName="id")
      */
     private $post;

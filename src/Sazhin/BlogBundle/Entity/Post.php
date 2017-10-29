@@ -2,6 +2,7 @@
 
 namespace Sazhin\BlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -88,6 +89,17 @@ class Post
      * @ORM\Column(name="content", type="text")
      */
     private $content;
+
+    /**
+     * @var Comment[]|ArrayCollection
+     *
+     * @ORM\OneToMany(
+     *      targetEntity="Comment",
+     *      mappedBy="post",
+     *      orphanRemoval=true
+     * )
+     */
+    private $comments;
 
     /**
      * @var \DateTime
@@ -328,5 +340,13 @@ class Post
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * @return ArrayCollection|Comment[]
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

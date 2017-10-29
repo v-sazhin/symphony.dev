@@ -1,0 +1,21 @@
+services:
+    #Сервис события при добавлении поста
+    sazhin.post.post_created_event:
+              class: Sazhin\BlogBundle\EventSubscriber\PostCreatedSubscriber
+              tags:
+                - { name: kernel.event_listener, event: sazhin.post.post_created_event, method: newPostCreated }
+              arguments: ['@Psr\Log\LoggerInterface']
+
+    #Сервис события при обновлении поста
+    sazhin.post.post_updated_event:
+              class: Sazhin\BlogBundle\EventSubscriber\PostUpdatedSubscriber
+              tags:
+                    - { name: kernel.event_listener, event: sazhin.post.post_updated_event, method: postUpdated }
+              arguments: ['@Psr\Log\LoggerInterface']
+
+    #Сервис события при удалении поста
+    sazhin.post.post_deleted_event:
+          class: Sazhin\BlogBundle\EventSubscriber\PostDeletedSubscriber
+          tags:
+          - { name: kernel.event_listener, event: sazhin.post.post_deleted_event, method: postDeleted }
+          arguments: ['@Psr\Log\LoggerInterface']

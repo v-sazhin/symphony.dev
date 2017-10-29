@@ -112,7 +112,6 @@ class AdminController extends Controller
         $form = $this->createDeleteForm($post);
 
         $formHandler = $this->get('sazhin.post.delete_post_form_handler');
-        //dump($post);die;
         //todo проверить наличие ошибок
         $formHandler->handle($form, $request, $post);
 

@@ -46,10 +46,20 @@
             $('.btn-replay').click(function () {
                 var post = $(this).attr('data-id');
                 $( "#post-id" ).remove();
+                var cancelBtn = '<div class="btn btn-danger btn-block" id="cancelBtn">Отмена</div>'
                 var input = '<input type="hidden" name="parent" id="post-id" value="' + post + '">';
                 $(document).scrollTop(scrollTo);
-                $("#sazhin_blogbundle_comment").append(input);
+                $('#cancelBtn').remove();
+                $("#sazhin_blogbundle_comment").append(input).append(cancelBtn);
                 $('#forjq').click().text('Ваш ответ:');
+            });
+
+            $(document).on("click", "#cancelBtn", function() {
+                var input = $('#post-id');
+                console.log(input);
+                $('#cancelBtn').remove();
+                $('#post-id').remove();
+                $('#forjq').text('Комментарий:');
             });
         });
     </script>

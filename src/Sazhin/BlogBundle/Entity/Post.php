@@ -71,7 +71,7 @@ class Post
      *     maxMessage="Краткость - сестра таланта! Максимальное кол-во символов - 1500"
      * )
      *
-     * @ORM\Column(name="description", type="text", length=500)
+     * @ORM\Column(name="description", type="text")
      */
     private $description;
 
@@ -82,8 +82,6 @@ class Post
      * @Assert\Length(
      *     min="100",
      *     minMessage="Краткое описание не может быть короче 100 символов",
-     *     max="500",
-     *     maxMessage="Краткость - сестра таланта! Максимальное количество сиволов - 500"
      * )
      *
      * @ORM\Column(name="content", type="text")

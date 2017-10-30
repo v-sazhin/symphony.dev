@@ -6,13 +6,13 @@
     <div class="form-group">
         {{ form_widget(form) }}
         <br>
-        <input type="submit" value="Create" class="btn btn-default btn-block"/>
+        <input type="submit" value="Create" class="btn btn-default btn-block" formnovalidate/>
     </div>
     {{ form_end(form) }}
 
     <ul>
         <li>
-            <a href="{{ path('post_index') }}">Back to the list</a>
+            <a href="{{ path('post_index') }}" >Back to the list</a>
         </li>
     </ul>
 {% endblock %}

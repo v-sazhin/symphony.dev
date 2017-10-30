@@ -37,6 +37,8 @@ class PostManager
 
         $this->dispatch($post, new PostCreatedEvent(), PostEvents::POST_CREATED);
 
+        return true;
+
     }
 
     public function editPost(Post $post)
@@ -48,6 +50,8 @@ class PostManager
 
         $this->dispatch($post, new PostUpdatedEvent(), PostEvents::POST_UPDATED);
 
+        return true;
+
     }
 
     public function deletePost(Post $post)
@@ -58,6 +62,8 @@ class PostManager
         $this->manager->flush();
 
         $this->dispatch($post,new PostDeletedEvent(), PostEvents::POST_DELETED);
+
+        return true;
 
     }
 

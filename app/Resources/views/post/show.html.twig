@@ -46,7 +46,7 @@
             $('.btn-replay').click(function () {
                 var post = $(this).attr('data-id');
                 $( "#post-id" ).remove();
-                var cancelBtn = '<div class="btn btn-danger btn-block" id="cancelBtn">Отмена</div>'
+                var cancelBtn = '<div class="btn btn-danger btn-block btn-sm" id="cancelBtn">Отмена</div>'
                 var input = '<input type="hidden" name="parent" id="post-id" value="' + post + '">';
                 $(document).scrollTop(scrollTo);
                 $('#cancelBtn').remove();

@@ -90,6 +90,9 @@ class Post
      */
     private $content;
 
+    /** @ORM\Column(type="json_array", nullable=true) */
+    private $marking;
+
     /**
      * @var Comment[]|ArrayCollection
      *

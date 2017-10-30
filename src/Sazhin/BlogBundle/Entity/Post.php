@@ -71,7 +71,7 @@ class Post
      *     maxMessage="Краткость - сестра таланта! Максимальное кол-во символов - 1500"
      * )
      *
-     * @ORM\Column(name="description", type="text", length=20)
+     * @ORM\Column(name="description", type="text", length=500)
      */
     private $description;
 

@@ -21,14 +21,12 @@ class PostController extends Controller
      */
     public function indexAction(Request $request)
     {
-        /*dump($this->getDoctrine()->getRepository('SazhinBlogBundle:Post')
-        ->getPublishedPosts());die;*/
-        /*$em = $this->getDoctrine()->getManager();
-        $dql = "SELECT a FROM SazhinBlogBundle:Post a";*/
+
         $query = $this->getDoctrine()->getRepository('SazhinBlogBundle:Post')
             ->getPublishedPosts();
 
         $paginator = $this->get('knp_paginator');
+
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),

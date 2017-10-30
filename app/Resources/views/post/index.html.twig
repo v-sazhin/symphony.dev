@@ -31,7 +31,7 @@
                         </p>
                         <p class="post-meta">
                             {% if post.user %}
-                                by {{ post.user.username}}
+                                by {{ post.user.username }}
                             {% endif %}
 
                             {% if post.createdAt %}
@@ -45,7 +45,7 @@
                             {% endfor %}
 
                             {% if is_granted("ROLE_ADMIN") %}
-                            | <a href="{{ path('admin_edit', { 'id': post.id }) }}">Редактировать</a>
+                                | <a href="{{ path('admin_edit', { 'id': post.id }) }}">Редактировать</a>
                             {% endif %}
                         </p>
                     </div>

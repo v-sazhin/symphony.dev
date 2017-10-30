@@ -10,4 +10,11 @@ namespace Sazhin\BlogBundle\Repository;
  */
 class PostRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getPublishedPosts()
+    {
+        return $this->createQueryBuilder('post')
+            ->where('post.currentPlace = :state')
+            ->setParameter('state', ['published'])
+            ->getQuery()->getResult();
+    }
 }

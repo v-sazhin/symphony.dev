@@ -3,7 +3,7 @@ framework:
         blog_publishing:
             type: 'workflow' # or 'state_machine'
             marking_store:
-                type: 'multiple_state' # or 'single_state'
+                type: 'single_state'
                 arguments:
                     - 'currentPlace'
             supports:

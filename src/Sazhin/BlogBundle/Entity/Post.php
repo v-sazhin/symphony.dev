@@ -71,7 +71,7 @@ class Post
      *     maxMessage="Краткость - сестра таланта! Максимальное кол-во символов - 1500"
      * )
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", length=20)
      */
     private $description;
 
@@ -90,7 +90,7 @@ class Post
      */
     private $content;
 
-    /** @ORM\Column(type="json_array", nullable=true) */
+    /** @ORM\Column(type="string", nullable=true) */
     private $currentPlace;
 
     /**

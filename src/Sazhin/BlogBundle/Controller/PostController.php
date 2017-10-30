@@ -21,15 +21,18 @@ class PostController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $dql = "SELECT a FROM SazhinBlogBundle:Post a";
-        $query = $em->createQuery($dql);
+        /*dump($this->getDoctrine()->getRepository('SazhinBlogBundle:Post')
+        ->getPublishedPosts());die;*/
+        /*$em = $this->getDoctrine()->getManager();
+        $dql = "SELECT a FROM SazhinBlogBundle:Post a";*/
+        $query = $this->getDoctrine()->getRepository('SazhinBlogBundle:Post')
+            ->getPublishedPosts();
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            10, ['defaultSortFieldName' => 'a.createdAt', 'defaultSortDirection' => 'desc']
+            10, ['defaultSortFieldName' => 'id', 'defaultSortDirection' => 'desc']
         );
 
         return $this->render('post/index.html.twig', array(

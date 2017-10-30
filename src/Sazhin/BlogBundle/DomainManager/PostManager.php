@@ -5,29 +5,50 @@ namespace Sazhin\BlogBundle\DomainManager;
 
 
 use Doctrine\ORM\EntityManager;
+use LogicException;
 use Sazhin\BlogBundle\Entity\Post;
 use Sazhin\BlogBundle\Entity\User;
 use Sazhin\BlogBundle\Event\PostCreatedEvent;
 use Sazhin\BlogBundle\Event\PostDeletedEvent;
 use Sazhin\BlogBundle\Event\PostUpdatedEvent;
 use Sazhin\BlogBundle\PostEvents;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Workflow\Exception\ExceptionInterface;
 
-class PostManager
+class PostManager implements ContainerAwareInterface
 {
+
+    use ContainerAwareTrait;
 
     private $manager;
     private $dispatcher;
+    private $workflow;
 
-    public function __construct(EntityManager $manager, EventDispatcherInterface $dispatcher)
+    public function __construct(EntityManager $manager, EventDispatcherInterface $dispatcher, ContainerInterface $container)
     {
+        $this->setContainer($container);
         $this->manager = $manager;
         $this->dispatcher = $dispatcher;
+        $this->workflow = $this->container->get('workflow.blog_publishing');
     }
 
     public function createPost(Post $post, User $user)
     {
+
+        try {
+
+            $this->workflow->apply($post, 'to_review');
+
+        } catch (LogicException $e) {
+
+            $this->container->get('session')->getFlashBag()->add('danger', $e->getMessage());
+
+        }
 
         $post->setUser($user);
 
@@ -65,6 +86,20 @@ class PostManager
 
         return true;
 
+    }
+
+    public function applyTransition(Post $post, Request $request)
+    {
+        $transition = $request->request->get('transition');
+        try {
+            $this->workflow
+                ->apply($post, $transition);
+            $this->manager->flush();
+        } catch (ExceptionInterface $e) {
+            $this->container->get('session')->getFlashBag()->add('danger', $e->getMessage());
+            //return false;
+        }
+        return true;
     }
 
     private function dispatch(Post $post, Event $event, string $eventName)

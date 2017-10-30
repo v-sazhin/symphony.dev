@@ -91,7 +91,7 @@ class Post
     private $content;
 
     /** @ORM\Column(type="json_array", nullable=true) */
-    private $marking;
+    private $currentPlace;
 
     /**
      * @var Comment[]|ArrayCollection
@@ -351,5 +351,21 @@ class Post
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * @param mixed $currentPlace
+     */
+    public function setCurrentPlace($currentPlace)
+    {
+        $this->currentPlace = $currentPlace;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentPlace()
+    {
+        return $this->currentPlace;
     }
 }

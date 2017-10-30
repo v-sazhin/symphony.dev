@@ -17,3 +17,8 @@ admin_delete:
     path:     /{id}/delete
     defaults: { _controller: 'SazhinBlogBundle:Admin\Admin:delete' }
     methods:  DELETE
+
+post_apply_transition:
+    path:     /apply-transition/{id}
+    defaults: { _controller: 'SazhinBlogBundle:Admin\Admin:applyTransition' }
+    methods:  POST

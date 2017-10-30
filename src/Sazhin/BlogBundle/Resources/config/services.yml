@@ -3,13 +3,15 @@ imports:
         - { resource: "@SazhinBlogBundle/Resources/config/events/comment_events.yml" }
         - { resource: "@SazhinBlogBundle/Resources/config/handlers/post_handlers.yml" }
         - { resource: "@SazhinBlogBundle/Resources/config/handlers/comment_handler.yml" }
+        - { resource: "@SazhinBlogBundle/Resources/config/workflow.yml" }
+
 ######################################################################################
 services:
 
     #Менеджер постов
     sazhin.post.post_manager:
               class: Sazhin\BlogBundle\DomainManager\PostManager
-              arguments: ['@doctrine.orm.entity_manager', '@event_dispatcher']
+              arguments: ['@doctrine.orm.entity_manager', '@event_dispatcher', '@service_container']
 
     #Менеджер комментариев
     sazhin.post.comment_manager:

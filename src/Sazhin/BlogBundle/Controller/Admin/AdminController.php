@@ -119,6 +119,19 @@ class AdminController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param Post $post
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function applyTransitionAction(Request $request, Post $post)
+    {
+        $this->get('sazhin.post.post_manager')->applyTransition($post, $request);
+
+        return $this->redirectToRoute('admin_edit', ['id'=> $post->getId()]);
+    }
+
+    /**
      * Creates a form to delete a post entity.
      *
      * @param Post $post The post entity

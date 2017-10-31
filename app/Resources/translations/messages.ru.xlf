@@ -26,6 +26,30 @@
                 <source>form.comment.comment</source>
                 <target>Комментарий:</target>
             </trans-unit>
+            <trans-unit id="flash_post_created">
+                <source>flash.post.created</source>
+                <target>Запись добавлена!</target>
+            </trans-unit>
+            <trans-unit id="flash_post_updated">
+                <source>flash.post.updated</source>
+                <target>Запись отредактирована!</target>
+            </trans-unit>
+            <trans-unit id="flash_post_deleted">
+                <source>flash.post.deleted</source>
+                <target>Запись удалена!</target>
+            </trans-unit>
+            <trans-unit id="flash_post_workflow_changed_to_review">
+                <source>flash.post.workflow.changed.to_review</source>
+                <target>Статус записи изменен на "промодерирована" !</target>
+            </trans-unit>
+            <trans-unit id="flash_post_workflow_changed_publish">
+                <source>flash.post.workflow.changed.publish</source>
+                <target>Статус записи изменен на "опубликована" !</target>
+            </trans-unit>
+            <trans-unit id="flash_post_workflow_changed_reject">
+                <source>flash.post.workflow.changed.reject</source>
+                <target>Статус записи изменен на "мусор" !</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

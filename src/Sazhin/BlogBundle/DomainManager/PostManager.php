@@ -57,7 +57,7 @@ class PostManager
         $this->dispatch($post, new PostCreatedEvent(), PostEvents::POST_CREATED);
 
 
-        $this->session->getFlashBag()->add('success', 'Пост добавлен!');
+        $this->session->getFlashBag()->add('success', 'flash.post.created');
 
         return true;
 
@@ -72,7 +72,7 @@ class PostManager
 
         $this->dispatch($post, new PostUpdatedEvent(), PostEvents::POST_UPDATED);
 
-        $this->session->getFlashBag()->add('success', 'Пост отредактирован!');
+        $this->session->getFlashBag()->add('success', 'flash.post.updated');
 
         return true;
 
@@ -87,7 +87,7 @@ class PostManager
 
         $this->dispatch($post, new PostDeletedEvent(), PostEvents::POST_DELETED);
 
-        $this->session->getFlashBag()->add('danger', 'Пост удален!');
+        $this->session->getFlashBag()->add('danger', 'flash.post.deleted');
 
         return true;
 
@@ -105,7 +105,7 @@ class PostManager
             $this->session->getFlashBag()->add('danger', $e->getMessage());
         }
 
-        $this->session->getFlashBag()->add('success', 'Статус записи изменен на : '. $transition);
+        $this->session->getFlashBag()->add('success', 'flash.post.workflow.changed.'. $transition);
 
         return true;
     }

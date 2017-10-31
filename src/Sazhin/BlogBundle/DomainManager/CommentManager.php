@@ -5,14 +5,15 @@ namespace Sazhin\BlogBundle\DomainManager;
 
 
 use Doctrine\ORM\EntityManager;
+use Sazhin\BlogBundle\CommentEvents;
 use Sazhin\BlogBundle\Entity\Comment;
 use Sazhin\BlogBundle\Entity\Post;
 use Sazhin\BlogBundle\Entity\User;
 use Sazhin\BlogBundle\Event\CommentCreatedEvent;
-use Sazhin\BlogBundle\PostEvents;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+
 
 class CommentManager
 {
@@ -33,12 +34,12 @@ class CommentManager
 
         $comment->setPost($post);
 
-        if ($request->get('parent')){
+        if ($request->get('parent')) {
 
             $parent = $this->manager->getRepository('SazhinBlogBundle:Comment')
                 ->find($request->get('parent'));
 
-            if (!$parent){
+            if (!$parent) {
 
                 return false;
 
@@ -52,7 +53,7 @@ class CommentManager
 
         $this->manager->flush();
 
-        $this->dispatch($comment, new CommentCreatedEvent(), PostEvents::COMMENT_CREATED);
+        $this->dispatch($comment, new CommentCreatedEvent(), CommentEvents::COMMENT_CREATED);
 
         return true;
 

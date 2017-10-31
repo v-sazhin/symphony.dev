@@ -19,6 +19,7 @@ Sazhin\BlogBundle\Entity\Post:
   post_{1..100}:
       title: '<realText(50)>'
       description: '<text(150)>'
+      currentPlace: 'review'
       content: '<text(1500)>'
       createdAt: '<dateTimeBetween("-200 days", "now")>'
       updatedAt: '<dateTimeBetween("-200 days", "now")>'

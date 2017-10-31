@@ -25,17 +25,64 @@ class AdminController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $dql = "SELECT a FROM SazhinBlogBundle:Post a";
-        $query = $em->createQuery($dql);
+        $posts = $this->getDoctrine()->getRepository(Post::class)
+            ->findAll();
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $query,
+            $posts,
             $request->query->getInt('page', 1),
-            50, ['defaultSortFieldName' => 'a.id', 'defaultSortDirection' => 'desc']
+            50, ['defaultSortFieldName' => 'id', 'defaultSortDirection' => 'desc']
         );
 
+        return $this->render('/admin/index.html.twig', array(
+            'posts' => $pagination,
+        ));
+    }
+
+    public function rejectedAction(Request $request)
+    {
+        $posts = $this->getDoctrine()->getRepository(Post::class)
+            ->getPostsByState('rejected');
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $posts,
+            $request->query->getInt('page', 1),
+            50, ['defaultSortFieldName' => 'id', 'defaultSortDirection' => 'desc']
+        );
+        return $this->render('/admin/index.html.twig', array(
+            'posts' => $pagination,
+        ));
+    }
+
+    public function publishedAction(Request $request)
+    {
+        $posts = $this->getDoctrine()->getRepository(Post::class)
+            ->getPostsByState('published');
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $posts,
+            $request->query->getInt('page', 1),
+            50, ['defaultSortFieldName' => 'id', 'defaultSortDirection' => 'desc']
+        );
+        return $this->render('/admin/index.html.twig', array(
+            'posts' => $pagination,
+        ));
+    }
+
+    public function reviewAction(Request $request)
+    {
+        $posts = $this->getDoctrine()->getRepository(Post::class)
+            ->getPostsByState('review');
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $posts,
+            $request->query->getInt('page', 1),
+            50, ['defaultSortFieldName' => 'id', 'defaultSortDirection' => 'desc']
+        );
         return $this->render('/admin/index.html.twig', array(
             'posts' => $pagination,
         ));

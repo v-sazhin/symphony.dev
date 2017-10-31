@@ -3,7 +3,7 @@
 {% block body %}
     <div class="panel panel-default">
         <div class="panel-heading">
-            Kitchen Sink
+            Список записей
         </div>
         <!-- /.panel-heading -->
         <div class="panel-body">
@@ -50,16 +50,7 @@
     </div>
 {% endblock %}
 
-{% block title %}Список всех постов{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
-    {#<script>
-        $(document).ready(function () {
-            $('#example').DataTable();
-        });
-    </script>#}
-{% endblock %}
+{% block title %}Список постов{% endblock %}
 
 {% block css %}
     {{ parent() }}

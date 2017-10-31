@@ -18,6 +18,21 @@ admin_delete:
     defaults: { _controller: 'SazhinBlogBundle:Admin\Admin:delete' }
     methods:  DELETE
 
+admin_index_rejected:
+    path: /rejected
+    defaults: { _controller: 'SazhinBlogBundle:Admin\Admin:rejected' }
+    methods:  GET
+
+admin_index_published:
+    path: /published
+    defaults: { _controller: 'SazhinBlogBundle:Admin\Admin:published' }
+    methods:  GET
+
+admin_index_review:
+    path: /review
+    defaults: { _controller: 'SazhinBlogBundle:Admin\Admin:review' }
+    methods:  GET
+
 post_apply_transition:
     path:     /apply-transition/{id}
     defaults: { _controller: 'SazhinBlogBundle:Admin\Admin:applyTransition' }

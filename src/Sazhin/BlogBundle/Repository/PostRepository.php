@@ -14,7 +14,16 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->createQueryBuilder('post')
             ->where('post.currentPlace = :state')
-            ->setParameter('state', ['published'])
+            ->setParameter('state', 'published')
             ->getQuery()->getResult();
     }
+
+    public function getPostsByState(string $state)
+    {
+        return $this->createQueryBuilder('post')
+            ->where('post.currentPlace = :state')
+            ->setParameter('state', $state)
+            ->getQuery()->getResult();
+    }
+
 }

@@ -11,7 +11,9 @@ services:
     #Менеджер постов
     sazhin.post.post_manager:
               class: Sazhin\BlogBundle\DomainManager\PostManager
-              arguments: ['@doctrine.orm.entity_manager', '@event_dispatcher', '@service_container']
+              arguments: ['@doctrine.orm.entity_manager',
+               '@event_dispatcher',
+               '@session', '@workflow.blog_publishing']
 
     #Менеджер комментариев
     sazhin.post.comment_manager:

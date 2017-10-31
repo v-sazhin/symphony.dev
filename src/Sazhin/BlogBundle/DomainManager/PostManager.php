@@ -12,29 +12,27 @@ use Sazhin\BlogBundle\Event\PostCreatedEvent;
 use Sazhin\BlogBundle\Event\PostDeletedEvent;
 use Sazhin\BlogBundle\Event\PostUpdatedEvent;
 use Sazhin\BlogBundle\PostEvents;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Workflow\Exception\ExceptionInterface;
+use Symfony\Component\Workflow\Workflow;
 
-class PostManager implements ContainerAwareInterface
+class PostManager
 {
-
-    use ContainerAwareTrait;
 
     private $manager;
     private $dispatcher;
     private $workflow;
+    private $session;
 
-    public function __construct(EntityManager $manager, EventDispatcherInterface $dispatcher, ContainerInterface $container)
+    public function __construct(EntityManager $manager, EventDispatcherInterface $dispatcher, Session $session, Workflow $workflow)
     {
-        $this->setContainer($container);
         $this->manager = $manager;
         $this->dispatcher = $dispatcher;
-        $this->workflow = $this->container->get('workflow.blog_publishing');
+        $this->workflow = $workflow;
+        $this->session = $session;
     }
 
     public function createPost(Post $post, User $user)
@@ -46,7 +44,7 @@ class PostManager implements ContainerAwareInterface
 
         } catch (LogicException $e) {
 
-            $this->container->get('session')->getFlashBag()->add('danger', $e->getMessage());
+            $this->session->getFlashBag()->add('danger', $e->getMessage());
 
         }
 
@@ -57,6 +55,9 @@ class PostManager implements ContainerAwareInterface
         $this->manager->flush();
 
         $this->dispatch($post, new PostCreatedEvent(), PostEvents::POST_CREATED);
+
+
+        $this->session->getFlashBag()->add('success', 'Пост добавлен!');
 
         return true;
 
@@ -71,6 +72,8 @@ class PostManager implements ContainerAwareInterface
 
         $this->dispatch($post, new PostUpdatedEvent(), PostEvents::POST_UPDATED);
 
+        $this->session->getFlashBag()->add('success', 'Пост отредактирован!');
+
         return true;
 
     }
@@ -82,7 +85,9 @@ class PostManager implements ContainerAwareInterface
 
         $this->manager->flush();
 
-        $this->dispatch($post,new PostDeletedEvent(), PostEvents::POST_DELETED);
+        $this->dispatch($post, new PostDeletedEvent(), PostEvents::POST_DELETED);
+
+        $this->session->getFlashBag()->add('danger', 'Пост удален!');
 
         return true;
 
@@ -91,14 +96,17 @@ class PostManager implements ContainerAwareInterface
     public function applyTransition(Post $post, Request $request)
     {
         $transition = $request->request->get('transition');
+
         try {
             $this->workflow
                 ->apply($post, $transition);
             $this->manager->flush();
         } catch (ExceptionInterface $e) {
-            $this->container->get('session')->getFlashBag()->add('danger', $e->getMessage());
-            //return false;
+            $this->session->getFlashBag()->add('danger', $e->getMessage());
         }
+
+        $this->session->getFlashBag()->add('success', 'Статус записи изменен на : '. $transition);
+
         return true;
     }
 

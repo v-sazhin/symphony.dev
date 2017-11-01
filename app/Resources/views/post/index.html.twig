@@ -27,7 +27,7 @@
                             </h2>
                         </a>
                         <p class="lead">
-                            {{ post.description }}
+                            {{ post.description|raw }}
                         </p>
                         <p class="post-meta">
                             {% if post.user %}

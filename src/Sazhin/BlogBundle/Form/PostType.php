@@ -33,7 +33,8 @@ class PostType extends AbstractType
                 'translation_domain' => 'messages',
             ])
             ->add('image', FileType::class, [
-                'label' => 'form.image'
+                'label' => 'form.image',
+                'required'=>false
             ])
             ->add('categories', EntityType::class, [
                 'class' => 'SazhinBlogBundle:Category',

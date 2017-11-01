@@ -25,9 +25,15 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.1/classic/ckeditor.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#sazhin_blogbundle_post_categories').select2();
+            ClassicEditor
+                .create( document.querySelector( '#sazhin_blogbundle_post_content' ) )
+            ClassicEditor
+                .create( document.querySelector( '#sazhin_blogbundle_post_description' ) )
         });
     </script>
 {% endblock %}

@@ -76,7 +76,7 @@ class PostManager
 
     public function editPost(Post $post)
     {
-       // dump($post);die();
+        //dump($post);die();
         $this->manager->persist($post);
 
         $this->manager->flush();

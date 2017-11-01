@@ -46,9 +46,11 @@ class ImageUploadListener
             $fileName = $this->uploader->upload($file);
             //dump($fileName);die();
             $entity->setImage($fileName);
-        }else{
-            $fileName = $entity->getImage()->getFilename();
-            //dump($fileName->getFilename());die();
+        }
+
+        if ($file instanceof  File){
+            $fileName = $this->uploader->update($file);
+
             $entity->setImage($fileName);
         }
 

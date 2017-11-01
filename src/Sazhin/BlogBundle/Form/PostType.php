@@ -34,7 +34,8 @@ class PostType extends AbstractType
             ])
             ->add('image', FileType::class, [
                 'label' => 'form.image',
-                'required'=>false
+                'required'=>false,
+                'data_class'=>null
             ])
             ->add('categories', EntityType::class, [
                 'class' => 'SazhinBlogBundle:Category',

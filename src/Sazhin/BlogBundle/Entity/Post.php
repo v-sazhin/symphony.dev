@@ -384,7 +384,10 @@ class Post
 
     public function setImage($image)
     {
-        $this->image = $image;
-        return $this;
+        if($image !== null) {
+            $this->image = $image;
+
+            return $this;
+        }
     }
 }

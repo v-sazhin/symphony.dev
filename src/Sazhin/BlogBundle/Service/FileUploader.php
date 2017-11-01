@@ -8,6 +8,7 @@
 
 namespace Sazhin\BlogBundle\Service;
 
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileUploader
@@ -31,6 +32,11 @@ class FileUploader
         $file->move($this->getTargetDir(), $fileName);
 
         return $fileName;
+    }
+
+    public function update(File $file)
+    {
+        return $file->getFilename();
     }
 
     public function getTargetDir()

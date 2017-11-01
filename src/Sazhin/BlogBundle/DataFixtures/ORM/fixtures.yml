@@ -15,14 +15,14 @@ Sazhin\BlogBundle\Entity\User:
       email: '<email()>'
       plainPassword: <lexify>
 
-Sazhin\BlogBundle\Entity\Post:
-  post_{1..100}:
-      title: '<realText(50)>'
-      description: '<text(150)>'
-      currentPlace: 'review'
-      content: '<text(1500)>'
-      createdAt: '<dateTimeBetween("-200 days", "now")>'
-      updatedAt: '<dateTimeBetween("-200 days", "now")>'
-      user: '@user_*'
-      image: '31191ed2c2b19368536a4e127df400b0.jpeg'
-      categories: ['@category_*']
+#Sazhin\BlogBundle\Entity\Post:
+#  post_{1..100}:
+#      title: '<realText(50)>'
+#      description: '<text(150)>'
+#      currentPlace: 'review'
+#      content: '<text(1500)>'
+#      createdAt: '<dateTimeBetween("-200 days", "now")>'
+#      updatedAt: '<dateTimeBetween("-200 days", "now")>'
+#      user: '@user_*'
+#      image: '31191ed2c2b19368536a4e127df400b0.jpeg'
+#      categories: ['@category_*']

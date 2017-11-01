@@ -4,6 +4,7 @@ namespace Sazhin\BlogBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -31,13 +32,16 @@ class PostType extends AbstractType
                 "required"=>true,
                 'translation_domain' => 'messages',
             ])
-            ->add('categories', EntityType::class, array(
+            ->add('image', FileType::class, [
+                'label' => 'form.image'
+            ])
+            ->add('categories', EntityType::class, [
                 'class' => 'SazhinBlogBundle:Category',
                 'choice_label' => 'name',
                 'multiple' => true,
                 "label"=>"form.categories",
                 'translation_domain' => 'messages',
-            ));
+            ]);
     }
 
     /**

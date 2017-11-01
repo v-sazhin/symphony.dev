@@ -12,6 +12,7 @@ use Sazhin\BlogBundle\Event\PostCreatedEvent;
 use Sazhin\BlogBundle\Event\PostDeletedEvent;
 use Sazhin\BlogBundle\Event\PostUpdatedEvent;
 use Sazhin\BlogBundle\PostEvents;
+use Sazhin\BlogBundle\Service\FileUploader;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,13 +27,20 @@ class PostManager
     private $dispatcher;
     private $workflow;
     private $session;
+    private $fileUploader;
 
-    public function __construct(EntityManager $manager, EventDispatcherInterface $dispatcher, Session $session, Workflow $workflow)
+    public function __construct(
+        EntityManager $manager,
+        EventDispatcherInterface $dispatcher,
+        Session $session,
+        Workflow $workflow,
+        FileUploader $fileUploader)
     {
         $this->manager = $manager;
         $this->dispatcher = $dispatcher;
         $this->workflow = $workflow;
         $this->session = $session;
+        $this->fileUploader = $fileUploader;
     }
 
     public function createPost(Post $post, User $user)
@@ -47,6 +55,9 @@ class PostManager
             $this->session->getFlashBag()->add('danger', $e->getMessage());
 
         }
+        /*$fileName = $this->fileUploader->upload($post->getImage());
+
+        $post->setImage($fileName)*/;
 
         $post->setUser($user);
 
@@ -65,7 +76,7 @@ class PostManager
 
     public function editPost(Post $post)
     {
-
+       // dump($post);die();
         $this->manager->persist($post);
 
         $this->manager->flush();

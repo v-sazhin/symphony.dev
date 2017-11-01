@@ -15,4 +15,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-/.idea/
+/.idea/*
+!web/uploads/images
+web/uploads/images/*
+!web/uploads/images/31191ed2c2b19368536a4e127df400b0.jpeg

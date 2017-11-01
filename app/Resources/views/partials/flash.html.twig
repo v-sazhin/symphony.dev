@@ -1,6 +1,5 @@
 {% for label, messages in app.flashes %}
     {% for message in messages %}
-        {{ dump(message) }}
         <div class="alert alert-{{ label }}">
             {{ message|trans }}
         </div>

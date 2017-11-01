@@ -103,6 +103,13 @@ class Post
     private $comments;
 
     /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
+     */
+    private $image;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -365,5 +372,19 @@ class Post
     public function getCurrentPlace()
     {
         return $this->currentPlace;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
     }
 }

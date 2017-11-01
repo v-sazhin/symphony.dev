@@ -13,9 +13,23 @@ services:
               class: Sazhin\BlogBundle\DomainManager\PostManager
               arguments: ['@doctrine.orm.entity_manager',
                '@event_dispatcher',
-               '@session', '@workflow.blog_publishing']
+               '@session', '@workflow.blog_publishing', '@sazhin.post.file_uploader']
 
     #Менеджер комментариев
     sazhin.post.comment_manager:
               class: Sazhin\BlogBundle\DomainManager\CommentManager
               arguments: ['@doctrine.orm.entity_manager', '@event_dispatcher']
+
+    #Загрузчик файлов
+    sazhin.post.file_uploader:
+              class: Sazhin\BlogBundle\Service\FileUploader
+              arguments: ['%images_directory%']
+
+    #Прослушиватель обновления поста.
+    sazhin.post.file_uploader_listener:
+              class: Sazhin\BlogBundle\EventListener\ImageUploadListener
+              arguments: ['@sazhin.post.file_uploader']
+              tags:
+                  - { name: doctrine.event_listener, event: prePersist }
+                  - { name: doctrine.event_listener, event: preUpdate }
+                  - { name: doctrine.event_listener, event: postLoad }

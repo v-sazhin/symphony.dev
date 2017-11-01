@@ -24,4 +24,5 @@ Sazhin\BlogBundle\Entity\Post:
       createdAt: '<dateTimeBetween("-200 days", "now")>'
       updatedAt: '<dateTimeBetween("-200 days", "now")>'
       user: '@user_*'
+      image: '31191ed2c2b19368536a4e127df400b0.jpeg'
       categories: ['@category_*']

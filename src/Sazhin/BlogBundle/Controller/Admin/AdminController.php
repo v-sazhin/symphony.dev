@@ -126,7 +126,7 @@ class AdminController extends Controller
      */
     public function editAction(Request $request, Post $post)
     {
-
+        //dump($post);die();
         $deleteForm = $this->createDeleteForm($post);
 
         $editForm = $this->createForm('Sazhin\BlogBundle\Form\PostType', $post);

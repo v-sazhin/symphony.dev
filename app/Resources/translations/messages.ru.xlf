@@ -6,6 +6,10 @@
                 <source>form.title</source>
                 <target>Заголовок</target>
             </trans-unit>
+            <trans-unit id="form_image">
+                <source>form.image</source>
+                <target>Картинка для записи (PNG или JPG)</target>
+            </trans-unit>
             <trans-unit id="form_description">
                 <source>form.description</source>
                 <target>Краткое описание</target>

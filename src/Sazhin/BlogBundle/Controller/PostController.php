@@ -22,16 +22,11 @@ class PostController extends Controller
     public function indexAction(Request $request)
     {
 
-        $query = $this->getDoctrine()->getRepository('SazhinBlogBundle:Post')
+        $posts = $this->getDoctrine()->getRepository('SazhinBlogBundle:Post')
             ->getPublishedPosts();
 
-        $paginator = $this->get('knp_paginator');
-
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            10, ['defaultSortFieldName' => 'id', 'defaultSortDirection' => 'desc']
-        );
+        $paginator = $this->get('sazhin_blog.service.pagination');
+        $pagination = $paginator->paginate($posts, $request->query->getInt('page', 1));
 
         return $this->render('post/index.html.twig', array(
             'posts' => $pagination,

@@ -15,18 +15,15 @@ class CategoryController extends Controller
      */
     public function showAction($slug, Request $request)
     {
-        $paginator = $this->get('knp_paginator');
 
         $category = $this->getDoctrine()->getRepository('SazhinBlogBundle:Category')
             ->findOneBy(['slug' => $slug]);
 
-        $query = $category->getPosts();
+        $posts = $category->getPosts()->toArray();
+        //dump($posts);die();
 
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            10/*, ['defaultSortFieldName' => 'a.createdAt', 'defaultSortDirection' => 'desc']*/
-        );
+        $paginator = $this->get('sazhin_blog.service.pagination');
+        $pagination = $paginator->paginate($posts, $request->query->getInt('page', 1));
 
         return $this->render(':post/category:index.html.twig', array(
             'posts' => $pagination,

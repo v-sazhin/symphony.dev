@@ -7,5 +7,3 @@ post_show:
     path:     /{slug}
     defaults: { _controller: "SazhinBlogBundle:Post:show" }
     methods:  [GET, POST]
-
-

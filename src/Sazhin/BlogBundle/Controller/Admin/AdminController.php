@@ -28,12 +28,8 @@ class AdminController extends Controller
         $posts = $this->getDoctrine()->getRepository(Post::class)
             ->findAll();
 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $posts,
-            $request->query->getInt('page', 1),
-            50, ['defaultSortFieldName' => 'id', 'defaultSortDirection' => 'desc']
-        );
+        $paginator = $this->get('sazhin_blog.service.pagination');
+        $pagination = $paginator->paginate($posts, $request->query->getInt('page', 1));
 
         return $this->render('/admin/index.html.twig', array(
             'posts' => $pagination,
@@ -45,12 +41,8 @@ class AdminController extends Controller
         $posts = $this->getDoctrine()->getRepository(Post::class)
             ->getPostsByState('rejected');
 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $posts,
-            $request->query->getInt('page', 1),
-            50, ['defaultSortFieldName' => 'id', 'defaultSortDirection' => 'desc']
-        );
+        $paginator = $this->get('sazhin_blog.service.pagination');
+        $pagination = $paginator->paginate($posts, $request->query->getInt('page', 1));
         return $this->render('/admin/index.html.twig', array(
             'posts' => $pagination,
         ));
@@ -61,12 +53,9 @@ class AdminController extends Controller
         $posts = $this->getDoctrine()->getRepository(Post::class)
             ->getPostsByState('published');
 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $posts,
-            $request->query->getInt('page', 1),
-            50, ['defaultSortFieldName' => 'id', 'defaultSortDirection' => 'desc']
-        );
+        $paginator = $this->get('sazhin_blog.service.pagination');
+        $pagination = $paginator->paginate($posts, $request->query->getInt('page', 1));
+
         return $this->render('/admin/index.html.twig', array(
             'posts' => $pagination,
         ));
@@ -77,12 +66,9 @@ class AdminController extends Controller
         $posts = $this->getDoctrine()->getRepository(Post::class)
             ->getPostsByState('review');
 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $posts,
-            $request->query->getInt('page', 1),
-            50, ['defaultSortFieldName' => 'id', 'defaultSortDirection' => 'desc']
-        );
+        $paginator = $this->get('sazhin_blog.service.pagination');
+        $pagination = $paginator->paginate($posts, $request->query->getInt('page', 1));
+        
         return $this->render('/admin/index.html.twig', array(
             'posts' => $pagination,
         ));

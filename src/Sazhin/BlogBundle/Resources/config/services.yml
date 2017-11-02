@@ -33,3 +33,8 @@ services:
                   - { name: doctrine.event_listener, event: prePersist }
                   - { name: doctrine.event_listener, event: preUpdate }
                   - { name: doctrine.event_listener, event: postLoad }
+
+    #Пагинация
+    sazhin_blog.service.pagination:
+        class: Sazhin\BlogBundle\Service\Pagination
+        arguments: ['@knp_paginator']
